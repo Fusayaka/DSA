@@ -26,7 +26,12 @@ CrossEntropy::~CrossEntropy() {
 
 double CrossEntropy::forward(xt::xarray<double> X, xt::xarray<double> t){
     //YOUR CODE IS HERE
+    m_aYtarget= t;
+    m_aCached_Ypred = X;
+    return cross_entropy(X,t,m_eReduction==REDUCE_MEAN);
 }
 xt::xarray<double> CrossEntropy::backward() {
     //YOUR CODE IS HERE
+    int Nnorm=(m_eReduction==REDUCE_MEAN)?m_aCached_Ypred.shape()[0]:1;
+    return -1.0 / Nnorm * (m_aYtarget / (m_aCached_Ypred + 1e-7));
 }
