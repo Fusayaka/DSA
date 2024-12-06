@@ -42,18 +42,22 @@ public:
     }
     DLinkedList<T> bfsSort(bool sorted=true){ 
         //TODO
+        if (sorted)
     }
 
     DLinkedList<T> dfsSort(bool sorted=true){
         //TODO
+        if (sorted)
     }
 
 protected:
 
     //Helper functions
-    XHashMap<T, int> vertex2inDegree(int (*hash)(T&, int));
-    XHashMap<T, int> vertex2outDegree(int (*hash)(T&, int));
-    DLinkedList<T> listOfZeroInDegrees();
+    xMap<T, int> vertex2inDegree(int (*hash)(T&, int));
+    xMap<T, int> vertex2outDegree(int (*hash)(T&, int));
+    DLinkedList<T> listOfZeroInDegrees(){
+        continue;
+    }
 
 }; //TopoSorter
 template<class T>

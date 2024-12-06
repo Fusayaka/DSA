@@ -15,11 +15,11 @@
 #define DGRAPHMODEL_H
 #include "graph/AbstractGraph.h"
 #include "hash/xMap.h"
-// #include "stacknqueue/Queue.h"
-// #include "stacknqueue/Stack.h"
+#include "stacknqueue/Queue.h"
+#include "stacknqueue/Stack.h"
 // #include "hash/XHashMap.h"
 // #include "stacknqueue/PriorityQueue.h"
-// #include "sorting/DLinkedListSE.h"
+#include "sorting/DLinkedListSE.h"
 
 
 //////////////////////////////////////////////////////////////////////

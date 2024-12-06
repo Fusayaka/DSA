@@ -122,6 +122,19 @@ void dijkstraDemo(){
     cout << endl;
 }
 
+void ListSort(){
+    DLinkedList<int> model;
+    model.add(10);
+    model.add(-10);
+    model.add(-94);
+    model.add(95);
+    model.add(36);
+    model.add(120);
+    model.add(1);
+    model.add(45);
+
+}
+
 
 #endif /* DGRAPHDEMO_H */
 
