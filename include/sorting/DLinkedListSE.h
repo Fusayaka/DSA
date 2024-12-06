@@ -35,7 +35,14 @@ public:
         //TODO: implement this function
         //     - You should implement the merge sort algorithm
         if (this->count > 1){
-            mergesort(this->begin(), this->count, comparator);
+            typename DLinkedList<T>::Node* temp = mergesort(this->begin(), this->count, comparator);
+            this->head->next = temp;
+            temp->next = this->head;
+            while (temp->next != nullptr) {
+                temp = temp->next;
+            }
+            this->tail->prev = temp;
+            temp->next = this->tail;
         }
     };
 private:

@@ -66,11 +66,7 @@ public:
         this->vertexEQ = vertexEQ;
         this->vertex2str = vertex2str;
     }
-    virtual ~AbstractGraph(){
-        // for (VertexNode* node : nodeList) {
-        //     delete node;
-        // }
-    }
+    virtual ~AbstractGraph(){}
     
     typedef bool (*vertexEQFunc)(T&, T&);
     typedef string (*vertex2strFunc)(T&);

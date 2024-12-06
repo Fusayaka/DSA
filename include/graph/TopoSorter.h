@@ -53,10 +53,34 @@ public:
 protected:
 
     //Helper functions
-    xMap<T, int> vertex2inDegree(int (*hash)(T&, int));
-    xMap<T, int> vertex2outDegree(int (*hash)(T&, int));
+    xMap<T, int> vertex2inDegree(int (*hash)(T&, int)){
+        xMap<T, int> inDegreeMap(hash);
+        DLinkedList<T> vertices = this->graph->vertices();
+        
+        for (T vertex : vertices) {
+            inDegreeMap.put(vertex, this->graph->inDegree(vertex)); // Khởi tạo in-degree = 0
+        }
+        return inDegreeMap;
+    };
+    xMap<T, int> vertex2outDegree(int (*hash)(T&, int)){
+        xMap<T, int> inDegreeMap(hash);
+        DLinkedList<T> vertices = this->graph->vertices();
+        
+        for (T vertex : vertices) {
+            inDegreeMap.put(vertex, this->graph->outDegree(vertex)); // Khởi tạo in-degree = 0
+        }
+        return inDegreeMap;
+    };
     DLinkedList<T> listOfZeroInDegrees(){
-        continue;
+        DLinkedList<T> listdeg;
+        DLinkedList<T> vertices = this->graph->vertices();
+
+        for (T vertex : vertices){
+            if (this->graph->inDegree(vertex) == 0)
+                listdeg.add(vertex);
+        }
+
+        return listdeg;
     }
 
 }; //TopoSorter
