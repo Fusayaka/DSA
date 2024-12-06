@@ -16,7 +16,8 @@
 #include "graph/DGraphModel.h"
 #include "list/DLinkedList.h"
 #include "sorting/DLinkedListSE.h"
-
+#include "stacknqueue/Queue.h"
+#include "stacknqueue/Stack.h"
 template<class T>
 class TopoSorter{
 public:
@@ -42,34 +43,89 @@ public:
     }
     DLinkedList<T> bfsSort(bool sorted=true){ 
         //TODO
-        if (sorted)
+        DLinkedList<T> list;
+        Queue<T> q;
+        xMap<T, int> inMap = vertex2inDegree(this->hash_code);
+        bool compare = [](T a, T b){return a < b;};
+        DLinkedListSE<T> listzero = listOfZeroInDegrees();
+
+        if (sorted){
+            listzero.sort(compare);
+        }
+        for (T vertex : listzero){
+            q.push(vertex);
+        }
+        while (!q.empty()){
+            T vertex = q.pop();
+            list.add(vertex);
+            DLinkedListSE<T> neighbors = this->graph->getOutwardEdges(vertex);
+            if (sorted){
+                neighbors.sort(compare);
+            }
+            for (T neighbor : neighbors) {
+                int inDegree = inMap.get(neighbor) - 1;
+                inMap.put(neighbor, inDegree);
+                if (inDegree == 0){
+                    q.push(neighbor);
+                }
+            }
+        }
+        return list;
     }
 
     DLinkedList<T> dfsSort(bool sorted=true){
         //TODO
-        if (sorted)
+        DLinkedList<T> list;
+        Stack<T> s;
+        xMap<T, int> outMap = vertex2outDegree(this->hash_code);
+        bool compare = [](T a, T b){return a < b;};
+        DLinkedListSE<T> listzero = listOfZeroInDegrees();
+
+        if (sorted){
+            listzero.sort(compare);
+        }
+        for (T vertex : listzero){
+            s.push(vertex);
+        }
+        while (!s.empty()) {
+            T vertex = s.pop();
+            list.add(vertex);
+            DLinkedListSE<T> neighbors = this->graph->getOutwardEdges(vertex);
+            if (sorted) {
+                neighbors.sort(compare);
+            }
+            for (T neighbor : neighbors) {
+                int outDegree = outMap.get(neighbor) - 1;
+                outMap.put(neighbor, outDegree);
+                if (outDegree == 0) {
+                    s.push(neighbor);
+                }
+            }
+        }
+
+        return list;
     }
 
 protected:
 
     //Helper functions
     xMap<T, int> vertex2inDegree(int (*hash)(T&, int)){
-        xMap<T, int> inDegreeMap(hash);
+        xMap<T, int> degmap(hash);
         DLinkedList<T> vertices = this->graph->vertices();
         
         for (T vertex : vertices) {
-            inDegreeMap.put(vertex, this->graph->inDegree(vertex)); // Khởi tạo in-degree = 0
+            degmap.put(vertex, this->graph->inDegree(vertex));
         }
-        return inDegreeMap;
+        return degmap;
     };
     xMap<T, int> vertex2outDegree(int (*hash)(T&, int)){
-        xMap<T, int> inDegreeMap(hash);
+        xMap<T, int> degmap(hash);
         DLinkedList<T> vertices = this->graph->vertices();
         
         for (T vertex : vertices) {
-            inDegreeMap.put(vertex, this->graph->outDegree(vertex)); // Khởi tạo in-degree = 0
+            degmap.put(vertex, this->graph->outDegree(vertex)); 
         }
-        return inDegreeMap;
+        return degmap;
     };
     DLinkedList<T> listOfZeroInDegrees(){
         DLinkedList<T> listdeg;
