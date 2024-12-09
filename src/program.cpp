@@ -25,9 +25,9 @@ namespace fs = std::filesystem;
 #include "graph/DGraphModel.h"
 #include "graph/UGraphModel.h"
 
-#include "graph/DGraphDemo.h"
-#include "graph/UGraphDemo.h"
-
+// #include "graph/DGraphDemo.h"
+// #include "graph/UGraphDemo.h"
+#include "graph/sampleDemo.h"
 
 int main(int argc, char** argv) {
     //dataloader:
