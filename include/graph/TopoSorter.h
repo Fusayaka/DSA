@@ -75,30 +75,15 @@ public:
     DLinkedList<T> dfsSort(bool sorted=true){
         //TODO
         DLinkedList<T> list;
-        Stack<T> s;
-        xMap<T, int> outMap = vertex2outDegree(this->hash_code);
+        xMap<T, int> inMap = vertex2inDegree(this->hash_code);
         DLinkedListSE<T> listzero = listOfZeroInDegrees();
 
         if (sorted){
             listzero.sort();
         }
-        for (T vertex : listzero){
-            s.push(vertex);
-        }
-        while (!s.empty()) {
-            T vertex = s.pop();
-            list.add(vertex);
-            DLinkedListSE<T> neighbors = this->graph->getOutwardEdges(vertex);
-            if (sorted) {
-                neighbors.sort();
-            }
-            for (T neighbor : neighbors) {
-                int outDegree = outMap.get(neighbor) - 1;
-                outMap.put(neighbor, outDegree);
-                if (outDegree == 0) {
-                    s.push(neighbor);
-                }
-            }
+        for (auto it = listzero.bbegin(); it != listzero.bend(); ++it){
+            T vertex = *it;
+            dfshelper(vertex, inMap, list, sorted);
         }
 
         return list;
@@ -107,6 +92,19 @@ public:
 protected:
 
     //Helper functions
+    void dfshelper(T vertex, xMap<T, int>& map, DLinkedList<T>& res, bool sorted){
+        DLinkedListSE<T> neighbors = this->graph->getOutwardEdges(vertex);
+        if (sorted)
+            neighbors.sort();
+        for (auto it = neighbors.bbegin(); it != neighbors.bend(); ++it){
+            T neighbor = *it;
+            if (map.get(neighbor) == 0)
+                continue;
+            dfshelper(neighbor, map, res, sorted);
+            map.put(neighbor, 0);
+        }
+        res.add(0, vertex);
+    }
     xMap<T, int> vertex2inDegree(int (*hash)(T&, int)){
         xMap<T, int> degmap(hash);
         DLinkedList<T> vertices = this->graph->vertices();
