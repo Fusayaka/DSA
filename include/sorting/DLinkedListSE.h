@@ -37,12 +37,13 @@ public:
         if (this->count > 1){
             typename DLinkedList<T>::Node* temp = mergesort(this->head->next, this->count, comparator);
             this->head->next = temp;
-            temp->next = this->head;
+            temp->prev = this->head;
             while (temp->next != nullptr) {
                 temp = temp->next;
             }
             this->tail->prev = temp;
             temp->next = this->tail;
+            this->tail->next = nullptr;
         }
     };
 private:
@@ -66,7 +67,6 @@ private:
             temp = temp->next;
         }
 
-        // Append remaining nodes
         while (leftsize > 0) {
             temp->next = left;
             left->prev = temp;
@@ -100,6 +100,7 @@ private:
         }
         typename DLinkedList<T>::Node* right = midNode->next;
         midNode->next = nullptr;
+        right->prev = nullptr;
 
         typename DLinkedList<T>::Node* leftSorted = mergesort(node, mid, comparator);
         typename DLinkedList<T>::Node* rightSorted = mergesort(right, size - mid, comparator);

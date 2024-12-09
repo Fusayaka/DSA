@@ -38,13 +38,14 @@ int main(int argc, char** argv) {
     //Classification:
     // twoclasses_classification();
     //threeclasses_classification();
-    DGraphDemo1();
-    DGraphDemo2();
-    DGraphDemo3();
-    dijkstraDemo();
-    ugraphDemo1();
-    ugraphDemo2();
-    ugraphDemo3();
+    // DGraphDemo1();
+    // DGraphDemo2();
+    // DGraphDemo3();
+    // dijkstraDemo();
+    // ugraphDemo1();
+    // ugraphDemo2();
+    // ugraphDemo3();
+    runAll();
 
     return 0;
 }
