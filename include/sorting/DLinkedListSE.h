@@ -35,7 +35,7 @@ public:
         //TODO: implement this function
         //     - You should implement the merge sort algorithm
         if (this->count > 1){
-            typename DLinkedList<T>::Node* temp = mergesort(this->begin(), this->count, comparator);
+            typename DLinkedList<T>::Node* temp = mergesort(this->head->next, this->count, comparator);
             this->head->next = temp;
             temp->next = this->head;
             while (temp->next != nullptr) {
@@ -46,12 +46,12 @@ public:
         }
     };
 private:
-    Node* merge(Node* left, int leftsize, Node* right, int rightsize, int (*comparator)(T&,T&)=0){
+    typename DLinkedList<T>::Node* merge(typename DLinkedList<T>::Node* left, int leftsize, typename DLinkedList<T>::Node* right, int rightsize, int (*comparator)(T&,T&)=0){
         typename DLinkedList<T>::Node dummy;
         typename DLinkedList<T>::Node* temp = &dummy;
 
         while (leftsize > 0 && rightsize > 0) {
-            if (comparator(left->data, right->data) <= 0) {
+            if (compare(left->data, right->data, comparator) <= 0) {
                 temp->next = left;
                 left->prev = temp;
                 left = left->next;
@@ -84,8 +84,8 @@ private:
 
         dummy.next->prev = nullptr;
         return dummy.next;
-    }
-    Node* mergesort(Node* node, int size, int (*comparator)(T&,T&)=0){
+    };
+    typename DLinkedList<T>::Node* mergesort(typename DLinkedList<T>::Node* node, int size, int (*comparator)(T&,T&)=0){
         
         if (size == 1) {
             node->next = nullptr;
@@ -101,11 +101,11 @@ private:
         typename DLinkedList<T>::Node* right = midNode->next;
         midNode->next = nullptr;
 
-        typename DLinkedList<T>::Node* leftSorted = mergeSort(node, mid, comparator);
-        typename DLinkedList<T>::Node* rightSorted = mergeSort(right, size - mid, comparator);
+        typename DLinkedList<T>::Node* leftSorted = mergesort(node, mid, comparator);
+        typename DLinkedList<T>::Node* rightSorted = mergesort(right, size - mid, comparator);
 
         return merge(leftSorted, mid, rightSorted, size - mid, comparator);
-    }
+    };
     
 protected:
     static int compare(T& lhs, T& rhs, int (*comparator)(T&,T&)=0){

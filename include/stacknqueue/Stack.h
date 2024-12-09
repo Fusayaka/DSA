@@ -42,13 +42,13 @@ public:
     T pop(){
         //TODO: remove and return the top item
         if (empty())
-            throw Underflow("Stack is empty.")
+            throw Underflow("Stack is empty.");
         return list.removeAt(0);
     }
     T& peek(){
         //TODO: return the top item
         if (empty())
-            throw Underflow("Stack is empty.")
+            throw Underflow("Stack is empty.");
         return list.get(0);
     }    
     bool empty(){

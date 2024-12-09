@@ -37,20 +37,19 @@ public:
     DLinkedList<T> sort(int mode=0, bool sorted=true){
         //TODO
         if (mode)
-            bfsSort(sorted);
+            return bfsSort(sorted);
         else   
-            dfsSort(sorted);
+            return dfsSort(sorted);
     }
     DLinkedList<T> bfsSort(bool sorted=true){ 
         //TODO
         DLinkedList<T> list;
         Queue<T> q;
         xMap<T, int> inMap = vertex2inDegree(this->hash_code);
-        bool compare = [](T a, T b){return a < b;};
         DLinkedListSE<T> listzero = listOfZeroInDegrees();
 
         if (sorted){
-            listzero.sort(compare);
+            listzero.sort();
         }
         for (T vertex : listzero){
             q.push(vertex);
@@ -60,7 +59,7 @@ public:
             list.add(vertex);
             DLinkedListSE<T> neighbors = this->graph->getOutwardEdges(vertex);
             if (sorted){
-                neighbors.sort(compare);
+                neighbors.sort();
             }
             for (T neighbor : neighbors) {
                 int inDegree = inMap.get(neighbor) - 1;
@@ -78,11 +77,10 @@ public:
         DLinkedList<T> list;
         Stack<T> s;
         xMap<T, int> outMap = vertex2outDegree(this->hash_code);
-        bool compare = [](T a, T b){return a < b;};
         DLinkedListSE<T> listzero = listOfZeroInDegrees();
 
         if (sorted){
-            listzero.sort(compare);
+            listzero.sort();
         }
         for (T vertex : listzero){
             s.push(vertex);
@@ -92,7 +90,7 @@ public:
             list.add(vertex);
             DLinkedListSE<T> neighbors = this->graph->getOutwardEdges(vertex);
             if (sorted) {
-                neighbors.sort(compare);
+                neighbors.sort();
             }
             for (T neighbor : neighbors) {
                 int outDegree = outMap.get(neighbor) - 1;
