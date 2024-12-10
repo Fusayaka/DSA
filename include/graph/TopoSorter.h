@@ -81,7 +81,8 @@ public:
         if (sorted){
             listzero.sort();
         }
-        for (T vertex : listzero){
+        for (auto it = listzero.bbegin(); it != listzero.bend(); ++it){
+            T vertex = *it;
             dfshelper(vertex, inMap, list, sorted);
         }
 
@@ -95,7 +96,8 @@ protected:
         DLinkedListSE<T> neighbors = this->graph->getOutwardEdges(vertex);
         if (sorted)
             neighbors.sort();
-        for (T vertex : neighbors){
+        for (auto it = neighbors.bbegin(); it != neighbors.bend(); ++it){
+            T neighbor = *it;
             if (map.get(neighbor) == 0)
                 continue;
             dfshelper(neighbor, map, res, sorted);
