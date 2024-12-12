@@ -41,7 +41,7 @@ public:
     T pop(){
         //TODO: remove and return the front item
         if (empty()) {
-            throw Underflow("Queue is empty.");
+            throw Underflow("Queue");
         }
         T temp = list.removeAt(0);
         return temp; //Placeholder
@@ -49,7 +49,7 @@ public:
     T& peek(){
         //TODO: return the front item
         if (empty()) {
-            throw Underflow("Queue is empty.");
+            throw Underflow("Queue");
         }
         return list.get(0); //Placeholder
     }

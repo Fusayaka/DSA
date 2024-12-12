@@ -136,7 +136,7 @@ public:
         for (int i = 0; i < nvertices; i++)
             tempgraph->add(vertices[i]);
         for (int i = 0; i < nedges; i++){
-            tempgraph->connect(edges[i].from->getVertex(), edges[i].to->getVertex(), edges[i].weight);
+            tempgraph->connect(edges[i].from, edges[i].to, edges[i].weight);
         }
         return tempgraph;
     }
